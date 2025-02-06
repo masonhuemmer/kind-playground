@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins
+  namespace: jenkins
+  annotations:
+    # Enable cert-manager for TLS
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+    # Force HTTP-01 Challenge via Ingress
+    cert-manager.io/acme-challenge-type: "http01"
+
+    # Ensure the correct Ingress class is used
+    spec.ingressClassName: "nginx"
+
+    # Redirect HTTP to HTTPS (optional)
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - jenkins.huemmer.cloud
+      secretName: jenkins-certificate  # Cert-Manager will store TLS certs here
+  rules:
+    - host: jenkins.huemmer.cloud
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins
+                port:
+                  number: 8080
