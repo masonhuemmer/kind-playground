@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Setup Kind Cluster
-kind create cluster --config manifests/config.yaml
+kind create cluster --config=./manifests/kind-config.yaml
 kubectl cluster-info --context kind-kind
 
-# Helm
+# Ingress Controller
+./scripts/ingress-nginx.sh
+
+# Ingress Controller
+./scripts/jenkins.sh

@@ -5,17 +5,12 @@ metadata:
   namespace: jenkins
   annotations:
     # Enable cert-manager for TLS
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-
-    # Force HTTP-01 Challenge via Ingress
-    cert-manager.io/acme-challenge-type: "http01"
-
-    # Ensure the correct Ingress class is used
-    spec.ingressClassName: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-dns"
 
     # Redirect HTTP to HTTPS (optional)
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         - jenkins.huemmer.cloud
