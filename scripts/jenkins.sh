@@ -20,6 +20,7 @@ kubectl apply -f ./manifests/jenkins-ingress.yaml
 
 # Get Username and Password
 kubectl get secret jenkins -n jenkins -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
+kubectl get secret jenkins -n jenkins -o json | jq '.data | map_values(@base64d)'
 
 # Troubleshoot
 # kubectl describe pod $(kubectl get pods -n jenkins -l app=jenkins -o jsonpath='{.metadata.name}') -n jenkins
