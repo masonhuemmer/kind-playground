@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-proxy-headers
+  namespace: jenkins
+data:
+  X-Forwarded-Host: "jenkins.huemmer.cloud"

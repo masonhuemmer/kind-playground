@@ -7,5 +7,8 @@ kubectl cluster-info --context kind-kind
 # Ingress Controller
 ./scripts/ingress-nginx.sh
 
-# Ingress Controller
+# Jenkins
 ./scripts/jenkins.sh
+
+# Certificate Manager
+./scripts/cert-manager.sh
